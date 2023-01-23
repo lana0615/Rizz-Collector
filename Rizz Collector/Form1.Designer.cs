@@ -39,6 +39,7 @@
             // 
             // gameLoop
             // 
+            this.gameLoop.Interval = 15;
             this.gameLoop.Tick += new System.EventHandler(this.gameLoop_Tick);
             // 
             // scoreLabel
@@ -112,6 +113,7 @@
             this.Controls.Add(this.instructionLabel);
             this.Controls.Add(this.livesLabel);
             this.Controls.Add(this.scoreLabel);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "form1";
             this.Text = "Rizz Collector";

@@ -19,8 +19,8 @@ namespace Rizz_Collector
 {
     public partial class form1 : Form
     {
-        Rectangle player = new Rectangle(540,200,40,10);
-        int playerSpeed = 10;
+        Rectangle player = new Rectangle(530, 340, 40, 10);
+        int playerSpeed = 12;
 
         List<Rectangle> rizz = new List<Rectangle>();
         List<int> rizzSpeed = new List<int>();
@@ -30,13 +30,14 @@ namespace Rizz_Collector
         List<int> rejectionsSpeed = new List<int>();
         List<string> rejectionColor = new List<string>();
 
-
+        int rizzSize = 10;
+        int rejectionSize = 10;
         int rizzSpeeds = 10;
         int rejectionSpeed = 10;
 
         int score = 0;
 
-        int groundHeight = 150;
+        int groundHeight = 50;
 
         bool leftDown = false;
         bool rightDown = false;
@@ -45,7 +46,7 @@ namespace Rizz_Collector
         SolidBrush greenBrush = new SolidBrush(Color.Green);
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush pinkBrush = new SolidBrush(Color.HotPink);
-        SolidBrush purpleBrush = new SolidBrush(Color.Purple);
+        SolidBrush purpleBrush = new SolidBrush(Color.DarkSlateBlue);
 
         Random randGen = new Random();
         int randValue = 0;
@@ -61,7 +62,7 @@ namespace Rizz_Collector
         {
             gameState = "running";
 
-            instructionLabel.Visible = false; 
+            instructionLabel.Visible = false;
 
             gameLoop.Enabled = true;
             score = 0;
@@ -114,6 +115,53 @@ namespace Rizz_Collector
         private void gameLoop_Tick(object sender, EventArgs e)
         {
             //move player
+            if (leftDown == true && player.X > 0)
+            {
+                player.X -= playerSpeed;
+            }
+
+            if (rightDown == true && player.X < this.Width - player.Width)
+            {
+                player.X += playerSpeed;
+            }
+
+            //move rizz
+            for (int i = 0; i < rizz.Count; i++)
+            {
+                int y = rizz[i].Y + rizzSpeeds;
+                rizz[i] = new Rectangle(rizz[i].X, y, rizzSize, rizzSize);
+            }
+            // move rejections 
+            for (int i = 0; i < rejections.Count; i++)
+            {
+                int y = rejections[i].Y + rejectionSpeed;
+                rejections[i] = new Rectangle(rejections[i].X, y, rejectionSize, rejectionSize);
+            }
+            //generate random value
+            randValue = randGen.Next(1, 101);
+            // generate new rizz/rejection if it is time
+            if (randValue < 6)
+            {
+                rejections.Add(new Rectangle(randGen.Next(0, this.Width - rejectionSize), 0, rejectionSize, rejectionSize));
+                rejectionColor.Add("red");
+                rizzSpeed.Add(12);
+            }
+            else if (randValue < 17) 
+            {
+                rizz.Add(new Rectangle(randGen.Next(0, this.Width - rizzSize), 0, rizzSize, rizzSize));
+                rizzColor.Add("red");
+                rejectionsSpeed.Add(8);
+                // remove rizz/rejection if it goes off the screen 
+
+                // check for collison between any rizz and player
+
+                // check for collison between any rejection and player
+
+                // end gane if three lives are lost
+
+
+                Refresh();
+            }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -123,7 +171,6 @@ namespace Rizz_Collector
             {
                 scoreLabel.Visible = false;
                 livesLabel.Visible = false;
-         //       bottomBar.Visible = false;
                 gameLabel.Visible = true;
                 singleEnding.Visible = false;
                 instructionLabel.Visible = true;
@@ -131,7 +178,6 @@ namespace Rizz_Collector
             else if (gameState == "running")
             {
                 //update labels 
-                //bottomBar.Visible = true;
                 scoreLabel.Visible = true;
                 livesLabel.Visible = true;
                 gameLabel.Visible = false;
@@ -150,31 +196,31 @@ namespace Rizz_Collector
                 e.Graphics.FillRectangle(pinkBrush, player);
 
                 //draw  rizz
-                //for (int i = 0; i < rizz.Count(); i++)
-                //{
-                //    if (rizzColor[i] == "green")
-                //    {
-                //        e.Graphics.FillEllipse(greenBrush, rizz[i]);
-                //    }
-                //}
+                for (int i = 0; i < rizz.Count(); i++)
+                {
+                    if (rizzColor[i] == "green")
+                    {
+                        e.Graphics.FillEllipse(greenBrush, rizz[i]);
+                    }
+                }
 
-                //// draw rejections
-                //for (int i = 0; i < rejections.Count(); i++)
-                //{
-                //    if (rejectionColor[i] == "red")
-                //    {
-                //        e.Graphics.FillEllipse(redBrush, rejections[i]);
-                //    }
-                //}
+                // draw rejections
+                for (int i = 0; i < rejections.Count(); i++)
+                {
+                    if (rejectionColor[i] == "red")
+                    {
+                        e.Graphics.FillEllipse(redBrush, rejections[i]);
+                    }
+                }
             }
             else if (gameState == "over")
             {
                 scoreLabel.Visible = false;
                 livesLabel.Visible = false;
-          //      bottomBar.Visible = false;
                 singleEnding.Visible = true;
                 instructionLabel.Visible = true;
             }
         }
     }
 }
+
