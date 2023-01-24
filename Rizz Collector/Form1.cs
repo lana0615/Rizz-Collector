@@ -32,8 +32,8 @@ namespace Rizz_Collector
 
         int rizzSize = 10;
         int rejectionSize = 10;
-        int rizzSpeeds = 10;
-        int rejectionSpeed = 10;
+        int rizzSpeeds = 5;
+        int rejectionSpeed = 5;
 
         int score = 0;
 
@@ -146,22 +146,79 @@ namespace Rizz_Collector
                 rejectionColor.Add("red");
                 rizzSpeed.Add(12);
             }
-            else if (randValue < 17) 
+            else if (randValue < 17)
             {
                 rizz.Add(new Rectangle(randGen.Next(0, this.Width - rizzSize), 0, rizzSize, rizzSize));
-                rizzColor.Add("red");
+                rizzColor.Add("green");
                 rejectionsSpeed.Add(8);
-                // remove rizz/rejection if it goes off the screen 
-
-                // check for collison between any rizz and player
-
-                // check for collison between any rejection and player
-
-                // end gane if three lives are lost
-
-
-                Refresh();
             }
+            // remove rizz/rejection if it goes off the screen 
+            for (int i = 0; i < rizz.Count; i++)
+            {
+                if (rizz[i].Y >= this.Height)
+                {
+                    rizz.RemoveAt(i);
+                    rizzColor.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < rejections.Count; i++)
+            {
+                if (rejections[i].Y >= this.Height)
+                {
+                    rejections.RemoveAt(i);
+                    rejectionsSpeed.RemoveAt(i);
+                    rejectionColor.RemoveAt(i);
+                }
+            }
+            // check for collison between any rizz and player
+            for (int i = 0; i < rizz.Count; i++)
+            {
+                if (player.IntersectsWith(rizz[i]))
+                {
+                    if (rizzColor[i] == "green")
+                    {
+                        score += 5;
+                        scoreLabel.Text = $"Score: {score}";
+                    }
+
+                    rizz.RemoveAt(i);
+                    rizzSpeed.RemoveAt(i);
+                    rizzColor.RemoveAt(i);
+                }
+            }
+            // check for collison between any rejection and player
+            for (int i = 0; i < rejections.Count; i++)
+            {
+                if (player.IntersectsWith(rejections[i]))
+                {
+                    if (rejectionColor[i] == "red")
+                    {
+                        // make lives dissapear 
+                    }
+
+                    rejections.RemoveAt(i);
+                    rejectionsSpeed.RemoveAt(i);
+                    rejectionColor.RemoveAt(i);
+                }
+            }
+
+            // every time the score gains 30 points display a dating tip
+            if (score == 30)
+            {
+                gameLoop.Stop();
+                instructionLabel.Visible = true;
+                instructionLabel.Text = "Compliment her \n and mean it\n Press Space bar to Continue";
+                
+            }
+            // end gane if three lives are lost
+            if (life1.Visible == false && life2.Visible == false && life3.Visible == false)
+            {
+                singleEnding.Visible = true;
+            }
+
+
+            Refresh();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -171,9 +228,12 @@ namespace Rizz_Collector
             {
                 scoreLabel.Visible = false;
                 livesLabel.Visible = false;
-                gameLabel.Visible = true;
+                gameLabel.Text = $"Rizz Collector \n Collect: Green Circles \n Avoid: Red Circles\n Press space bar to begin";
                 singleEnding.Visible = false;
-                instructionLabel.Visible = true;
+                instructionLabel.Text = $"Press Esc to exit Game";
+                life1.Visible = false;
+                life2.Visible = false;
+                life3.Visible = false;
             }
             else if (gameState == "running")
             {
@@ -182,7 +242,10 @@ namespace Rizz_Collector
                 livesLabel.Visible = true;
                 gameLabel.Visible = false;
                 singleEnding.Visible = false;
-                instructionLabel.Visible = false;
+                instructionLabel.Text = "";
+                life1.Visible = true;
+                life2.Visible = true;
+                life3.Visible = true;
 
                 gameLabel.Enabled = false;
                 singleEnding.Enabled = false;

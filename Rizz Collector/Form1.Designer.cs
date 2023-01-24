@@ -35,6 +35,9 @@
             this.instructionLabel = new System.Windows.Forms.Label();
             this.gameLabel = new System.Windows.Forms.Label();
             this.singleEnding = new System.Windows.Forms.Label();
+            this.life1 = new System.Windows.Forms.Label();
+            this.life2 = new System.Windows.Forms.Label();
+            this.life3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameLoop
@@ -71,7 +74,7 @@
             this.instructionLabel.AutoSize = true;
             this.instructionLabel.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructionLabel.ForeColor = System.Drawing.Color.White;
-            this.instructionLabel.Location = new System.Drawing.Point(179, 9);
+            this.instructionLabel.Location = new System.Drawing.Point(189, 6);
             this.instructionLabel.Name = "instructionLabel";
             this.instructionLabel.Size = new System.Drawing.Size(213, 26);
             this.instructionLabel.TabIndex = 6;
@@ -82,11 +85,11 @@
             this.gameLabel.BackColor = System.Drawing.Color.Transparent;
             this.gameLabel.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameLabel.ForeColor = System.Drawing.Color.White;
-            this.gameLabel.Location = new System.Drawing.Point(109, 84);
+            this.gameLabel.Location = new System.Drawing.Point(118, 84);
             this.gameLabel.Name = "gameLabel";
             this.gameLabel.Size = new System.Drawing.Size(377, 209);
             this.gameLabel.TabIndex = 7;
-            this.gameLabel.Text = " Rizz Collector\r\n\r\nCollect:  ✅   Avoid: ❌\r\n\r\nPress Space bar to begin\r\n\r\n";
+            this.gameLabel.Text = "\r\n";
             this.gameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // singleEnding
@@ -94,7 +97,7 @@
             this.singleEnding.BackColor = System.Drawing.Color.Transparent;
             this.singleEnding.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.singleEnding.ForeColor = System.Drawing.Color.White;
-            this.singleEnding.Location = new System.Drawing.Point(109, 84);
+            this.singleEnding.Location = new System.Drawing.Point(136, 84);
             this.singleEnding.Name = "singleEnding";
             this.singleEnding.Size = new System.Drawing.Size(377, 209);
             this.singleEnding.TabIndex = 8;
@@ -102,12 +105,42 @@
     "to begin\r\n\r\n";
             this.singleEnding.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // life1
+            // 
+            this.life1.BackColor = System.Drawing.Color.Red;
+            this.life1.ForeColor = System.Drawing.Color.Transparent;
+            this.life1.Location = new System.Drawing.Point(519, 15);
+            this.life1.Name = "life1";
+            this.life1.Size = new System.Drawing.Size(22, 20);
+            this.life1.TabIndex = 9;
+            // 
+            // life2
+            // 
+            this.life2.BackColor = System.Drawing.Color.Red;
+            this.life2.ForeColor = System.Drawing.Color.Transparent;
+            this.life2.Location = new System.Drawing.Point(547, 15);
+            this.life2.Name = "life2";
+            this.life2.Size = new System.Drawing.Size(22, 20);
+            this.life2.TabIndex = 10;
+            // 
+            // life3
+            // 
+            this.life3.BackColor = System.Drawing.Color.Red;
+            this.life3.ForeColor = System.Drawing.Color.Transparent;
+            this.life3.Location = new System.Drawing.Point(575, 15);
+            this.life3.Name = "life3";
+            this.life3.Size = new System.Drawing.Size(22, 20);
+            this.life3.TabIndex = 11;
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(600, 400);
+            this.Controls.Add(this.life3);
+            this.Controls.Add(this.life2);
+            this.Controls.Add(this.life1);
             this.Controls.Add(this.singleEnding);
             this.Controls.Add(this.gameLabel);
             this.Controls.Add(this.instructionLabel);
@@ -133,6 +166,9 @@
         private System.Windows.Forms.Label instructionLabel;
         private System.Windows.Forms.Label gameLabel;
         private System.Windows.Forms.Label singleEnding;
+        private System.Windows.Forms.Label life1;
+        private System.Windows.Forms.Label life2;
+        private System.Windows.Forms.Label life3;
     }
 }
 
